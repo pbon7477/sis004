@@ -1,7 +1,10 @@
 <div class="main-container">
 
     <form action="" class="box login" method="post" autocomplete="off">
-        <h5 class="title is-size-5 has-text-centered is-uppercase">Login</h5>       
+        <h5 class="title is-size-5 has-text-centered is-uppercase">Login</h5>  
+        <div class="has-text-centered">
+            <img src="<?= APP_URL;?>app/views/img/logo.png" alt="" width="50">
+        </div>     
 
         <div class="field">
             <label for="login_usuario" class="label">Usuario</label>
@@ -18,7 +21,8 @@
         </div>
 
         <p class="has-text-centered mb-4 mt-3">
-            <button type="submit" class="button is-info is-rounded">Iniciar sesion</button>
+            <button type="submit" class="button is-info ">Iniciar sesion</button>
+            <a href="<?= APP_URL;?>dashboard/" class="button is-danger">entrada provisoria </a>
         </p>
 
     </form>

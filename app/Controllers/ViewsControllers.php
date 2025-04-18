@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Controllers;
-use App\Models\ViewsModel;
+use app\Models\ViewsModel;
 
 class ViewsControllers extends ViewsModel {
 

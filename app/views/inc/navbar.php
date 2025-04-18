@@ -50,9 +50,9 @@ $selected = str_replace('/','',$_GET['views']);;
     
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link btnSubMenu" data-target="subMenu"> ** user name **</a>
+        <a class="navbar-link" id="btnSubMenu2"> ** user name **</a>
 
-        <div class="navbar-dropdown is-hidden" id="subMenu">
+        <div class="navbar-dropdown is-hidden" id="subMenu2">
             <a href="<?= APP_URL;?>userUpdate/"  class="navbar-item <?= ($selected == 'userUpdate')?'is-selected' : ''; ?>">Mi cuenta</a>
             <a href="<?= APP_URL;?>userPhoto/"   class="navbar-item <?= ($selected == 'userPhoto')?'is-selected' : ''; ?>"> Mi foto</a>
             <hr>

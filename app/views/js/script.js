@@ -1,11 +1,4 @@
-//test sweetalert
-document.querySelector("#testAlerta").addEventListener("click", () => {
-  Swal.fire({
-    title: "The Internet?",
-    text: "That thing is still around?",
-    icon: "question",
-  });
-});
+
 
 
 //cerrar cualquier caja de notificación (version de bulma)
@@ -21,10 +14,12 @@ document.querySelector("#testAlerta").addEventListener("click", () => {
 
 //cerrar cualquier caja de notificación (version pablo)
 document.addEventListener("DOMContentLoaded", () => {
+
   let btnsDelete = document.querySelectorAll(".delete");
   btnsDelete.forEach((btnDelete) => {
     btnDelete.addEventListener("click", (e) => {
       e.target.parentNode.style.display = "none";
     });
   });
+
 });

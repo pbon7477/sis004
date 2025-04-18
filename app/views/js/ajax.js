@@ -32,22 +32,22 @@ formularios_ajax.forEach((formulario) => {
           body: data,
         };
 
-
-
-
-
         fetch(action, config)
           .then((response) => response.json())
           .then((respuesta) => {
+            console.log(respuesta)
             return alerta_ajax(respuesta);
-          });
+          })
+          .catch( error => console.log( `Tu Error: ${error}`) );
       }
     });
   });
 });
 
+
 function alerta_ajax(alerta) {
-  if (alert.tipo == "simple") {
+
+  if (alerta.tipo == "simple") {
     Swal.fire({
       icon: alerta.icono,
       title: alerta.titulo,
@@ -55,6 +55,7 @@ function alerta_ajax(alerta) {
       confirmButtonText: "Aceptar",
       confirmButtonColor: "#222",
     });
+
   } else if (alerta.tipo == "recargar") {
     Swal.fire({
       icon: alerta.icono,
@@ -67,6 +68,7 @@ function alerta_ajax(alerta) {
         window.location.reload();
       }
     });
+
   } else if (alerta.tipo == "limpiar") {
     Swal.fire({
       icon: alerta.icono,
