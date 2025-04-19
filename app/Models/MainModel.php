@@ -89,7 +89,7 @@ class MainModel {
 
         $contador=0;
         foreach($datos as $clave){
-            if( $clave >= 1  ) {  $sql .=","; }
+            if( $contador >= 1  ) {  $sql .=","; }
             $sql .= $clave["campo_marcador"];
             $contador++;
         }
@@ -102,6 +102,7 @@ class MainModel {
             $query->bindParam($clave["campo_marcador"], $clave["campo_valor"] ); 
         }
 
+        
         $query->execute();
 
         return $query;

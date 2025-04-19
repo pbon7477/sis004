@@ -1,3 +1,5 @@
+// → Gestion de alertas ajax
+
 let formularios_ajax = document.querySelectorAll(".FormularioAjax");
 
 formularios_ajax.forEach((formulario) => {
@@ -35,7 +37,7 @@ formularios_ajax.forEach((formulario) => {
         fetch(action, config)
           .then((response) => response.json())
           .then((respuesta) => {
-            console.log(respuesta)
+            //console.log(respuesta)
             return alerta_ajax(respuesta);
           })
           .catch( error => console.log( `Tu Error: ${error}`) );

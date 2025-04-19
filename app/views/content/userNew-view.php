@@ -4,7 +4,7 @@
         <div class="columns ">
 
             <!-- COLUMNA DERECHA -->
-            <div class="column is-6 " style="border: 1px solid #7777;">
+            <div class="column is-9 " style="border: 1px solid #7777;">
 
 
                 <div class="columns">
@@ -50,7 +50,7 @@
                         <div class="column is-6">
                             <div class="control">
                                 <label for="email">Email:</label>
-                                <input class="input is-small" type="text"  name="usuario_email" id="usuario_email" maxlength="30" required>
+                                <input class="input is-small" type="text" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="usuario_email" id="usuario_email" maxlength="30" required>
                             </div>
                         </div>
 
@@ -60,14 +60,14 @@
                         <div class="column is-4">
                             <div class="control">
                                 <label for="usuario_clave_1">Password:</label>
-                                <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9]{7,100}" id="usuario_clave_1" maxlength="100" required>
+                                <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100" required>
                             </div>
                         </div>
 
                         <div class="column is-4">
                             <div class="control">
                                 <label for="usuario_clave_2">Confirmar password:</label>
-                                <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9]{7,100}" id="usuario_clave_2" maxlength="100" required>
+                                <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100" required>
                             </div>
                         </div>
 
@@ -108,9 +108,10 @@
 
             <!-- COLUMNA IZQUIERDA -->
             
-            <div class="column is-4 " style="border: 0px solid #9999;">
-                <h1 class="title has-text-warning">Quedamos en el minuto 08.00 min</h1>
-                <p class="subtitle">Del video 34 → CRUD | USUARIOS → PARTE 1</p>
+            <div class="column is-3 " style="border: 0px solid #9999;">
+                <h1 class="title has-text-warning">Quedamos en el minuto 00.00 min</h1>
+                <p class="subtitle">Del video 36 → CRUD | USUARIOS → PARTE 3</p>
+                <p>Subir foto del usuario al servidor</p>
 
             </div> 
            
