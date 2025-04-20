@@ -8,7 +8,7 @@
             </figure>
         </div>    
         <div class="columns is-flex is-justify-content-center">
-            <h2 class="subtitle">¡Bienvenido User nombre</h2>
+            <h2 class="subtitle">¡Bienvenido <?= $_SESSION['nombre']?></h2>
         </div>
     </div>
 </section>

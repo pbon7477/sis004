@@ -20,7 +20,11 @@ if( isset($_GET['views']) ){
 
 
 <?php 
+use app\Controllers\LoginController;
 use app\Controllers\ViewsControllers;
+
+$LoginController = new LoginController();
+
 
 $ViewController = new ViewsControllers();
 $vista = $ViewController->obtenerVistasControlador($url[0] );

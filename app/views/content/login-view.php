@@ -16,15 +16,26 @@
         <div class="field">
             <label for="login_clave" class="label">Clave</label>
             <div class="control">
-                <input type="password" class="input" pattern="[a-zA-Z0-9$@.-]{7,100}" name="login_clave" id="login_clave" maxlength="100" required>
+                <input type="password" class="input" pattern="[a-zA-Z0-9$@.\-]{6,100}" name="login_clave" id="login_clave" maxlength="100" required>
             </div>
         </div>
 
-        <p class="has-text-centered mb-4 mt-3">
-            <button type="submit" class="button is-info ">Iniciar sesion</button>
-            <a href="<?= APP_URL;?>dashboard/" class="button is-danger">entrada provisoria </a>
+        <p class="has-text-centered mb-4 mt-5">
+            <button type="submit" class="button is-info  ">Iniciar sesion</button>
+            
         </p>
 
     </form>
 
 </div>
+
+
+
+
+<?php 
+//LOGIN CONTROLLER
+if(isset($_POST['login_usuario']) && isset( $_POST['login_clave'] ) ){
+    $LoginController->iniciar_session_controlador();
+}
+
+?>
