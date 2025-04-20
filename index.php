@@ -39,8 +39,8 @@ if($vista == 'login' || $vista == '404'){
       $LoginController->cerrar_session_controlador();
       exit();
     }
-
-    # Si se inicio session, carga el navbar y las vistas
+    
+    # si se inicio session, carga el navbar y las vistas
     require_once( './app/views/inc/navbar.php' );
     require_once($vista);
 }

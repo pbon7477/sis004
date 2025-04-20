@@ -14,12 +14,9 @@ formularios_ajax.forEach((formulario) => {
       confirmButtonColor: "#222",
       cancelButtonColor: "#888",
       confirmButtonText: "Si, realizar",
-      cancelButtonText: "No, cancelar"
-
+      cancelButtonText: "No, cancelar",
     }).then((result) => {
-
       if (result.isConfirmed) {
-
         let data = new FormData(formulario);
         let method = formulario.getAttribute("method");
         let action = formulario.getAttribute("action");
@@ -40,15 +37,13 @@ formularios_ajax.forEach((formulario) => {
             //console.log(respuesta)
             return alerta_ajax(respuesta);
           })
-          .catch( error => console.log( `Tu Error: ${error}`) );
+          .catch((error) => console.log(`Tu Error: ${error}`));
       }
     });
   });
 });
 
-
 function alerta_ajax(alerta) {
-
   if (alerta.tipo == "simple") {
     Swal.fire({
       icon: alerta.icono,
@@ -57,7 +52,6 @@ function alerta_ajax(alerta) {
       confirmButtonText: "Aceptar",
       confirmButtonColor: "#222",
     });
-
   } else if (alerta.tipo == "recargar") {
     Swal.fire({
       icon: alerta.icono,
@@ -70,7 +64,6 @@ function alerta_ajax(alerta) {
         window.location.reload();
       }
     });
-
   } else if (alerta.tipo == "limpiar") {
     Swal.fire({
       icon: alerta.icono,
@@ -87,3 +80,32 @@ function alerta_ajax(alerta) {
     window.location.href = alerta.url;
   }
 }
+
+
+
+// boton cerrar session
+
+let btn_exit = document.querySelector("#btn_exit");
+
+btn_exit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  Swal.fire({
+    title: "¿Quiere salir del sistema?",
+    text: "La sesión actual se cerrara y saldrá del sistema",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#222",
+    cancelButtonColor: "#888",
+    confirmButtonText: "Si, salir",
+    cancelButtonText: "No, cancelar"
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+      let url = btn_exit.getAttribute("href");
+      console.log(url);
+      window.location.href = url;
+    }
+  });
+});

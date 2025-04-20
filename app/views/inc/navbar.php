@@ -56,7 +56,7 @@ $selected = str_replace('/','',$_GET['views']);;
             <a href="<?= APP_URL;?>userUpdate/"  class="navbar-item <?= ($selected == 'userUpdate')?'is-selected' : ''; ?>">Mi cuenta</a>
             <a href="<?= APP_URL;?>userPhoto/"   class="navbar-item <?= ($selected == 'userPhoto')?'is-selected' : ''; ?>"> Mi foto</a>
             <hr>
-            <a href="<?= APP_URL;?>logOut/"  class="navbar-item <?= ($selected == 'logOut')?'is-selected' : ''; ?>">  Salir</a>
+            <a href="<?= APP_URL;?>logOut/"  class="navbar-item <?= ($selected == 'logOut')?'is-selected' : ''; ?>" id="btn_exit">  Salir</a>
         </div>
 
       </div>
