@@ -31,9 +31,18 @@ $vista = $ViewController->obtenerVistasControlador($url[0] );
 
 if($vista == 'login' || $vista == '404'){
   require_once('./app/views/content/' . $vista . '-view.php');
+
 }else{
-  require_once( './app/views/inc/navbar.php' );
-  require_once($vista);
+
+    # cerrar session si no se ha logeado
+    if( !isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['usuario']) || $_SESSION['id'] == '' || $_SESSION['nombre'] == '' || $_SESSION['usuario'] == '' ){
+      $LoginController->cerrar_session_controlador();
+      exit();
+    }
+
+    # Si se inicio session, carga el navbar y las vistas
+    require_once( './app/views/inc/navbar.php' );
+    require_once($vista);
 }
 
 ?>
