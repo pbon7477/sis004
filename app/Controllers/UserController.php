@@ -197,7 +197,7 @@ class UserController extends MainModel
             # Verificando formato de imagen( .jpg, .jpeg y .png)
             if (
                 mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpg'  &&
-                mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpeg'  &&
+                mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpeg'  &&                
                 mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/png'
             ) {
 
@@ -244,7 +244,7 @@ class UserController extends MainModel
                     break;
                 case 'image/png':
                     $foto = $foto . '.png';
-                    break;
+                    break;               
             }
 
 
