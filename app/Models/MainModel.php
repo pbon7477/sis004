@@ -182,7 +182,7 @@ class MainModel {
             $tabla .= '<a class="pagination-previous" href="'. $url . ($pagina - 1) . '/' . '">Anterior</a>';
             $tabla .= '<ul class="pagination-list">';
             $tabla .= '<li>';
-            $tabla .= '<a class="pagination-link" href=" ' . $url . '/' . '">1</a>';
+            $tabla .= '<a class="pagination-link" href=" ' . $url .'">1</a>';
             $tabla .= '</li>';
 
             $tabla .= '<li>';

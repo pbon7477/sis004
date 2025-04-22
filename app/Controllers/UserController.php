@@ -9,8 +9,7 @@ class UserController extends MainModel
 {
 
     # Controlador para registrar un usuario #
-    public function registrar_usuario_controlador()
-    {
+    public function registrar_usuario_controlador()    {
         # Almacenando datos #
         $nombre = $this->limpiar_cadena($_POST['usuario_nombre']);
         $apellido = $this->limpiar_cadena($_POST['usuario_apellido']);
@@ -197,7 +196,7 @@ class UserController extends MainModel
             # Verificando formato de imagen( .jpg, .jpeg y .png)
             if (
                 mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpg'  &&
-                mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpeg'  &&                
+                mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/jpeg'  &&
                 mime_content_type($_FILES['usuario_foto']['tmp_name']) != 'image/png'
             ) {
 
@@ -244,7 +243,7 @@ class UserController extends MainModel
                     break;
                 case 'image/png':
                     $foto = $foto . '.png';
-                    break;               
+                    break;
             }
 
 
@@ -262,7 +261,6 @@ class UserController extends MainModel
                     'icono' => 'error'
                 ];
             }
-
         } else {
             $foto = '';
         }
@@ -271,52 +269,52 @@ class UserController extends MainModel
         # registro de datos del usuario
 
         $usuario_datos_reg = [
-            [ 
-              "campo_nombre" => "usuario_nombre",
-              "campo_marcador" => ":nombre",
-              "campo_valor" => $nombre
+            [
+                "campo_nombre" => "usuario_nombre",
+                "campo_marcador" => ":nombre",
+                "campo_valor" => $nombre
             ],
-            [ 
-              "campo_nombre" => "usuario_apellido",
-              "campo_marcador" => ":apellido",
-              "campo_valor" => $apellido
+            [
+                "campo_nombre" => "usuario_apellido",
+                "campo_marcador" => ":apellido",
+                "campo_valor" => $apellido
             ],
-            [ 
-              "campo_nombre" => "usuario_email",
-              "campo_marcador" => ":email",
-              "campo_valor" => $email
+            [
+                "campo_nombre" => "usuario_email",
+                "campo_marcador" => ":email",
+                "campo_valor" => $email
             ],
-            [ 
-              "campo_nombre" => "usuario_usuario",
-              "campo_marcador" => ":usuario",
-              "campo_valor" => $usuario
+            [
+                "campo_nombre" => "usuario_usuario",
+                "campo_marcador" => ":usuario",
+                "campo_valor" => $usuario
             ],
-            [ 
-              "campo_nombre" => "usuario_clave",
-              "campo_marcador" => ":clave",
-              "campo_valor" => $clave
+            [
+                "campo_nombre" => "usuario_clave",
+                "campo_marcador" => ":clave",
+                "campo_valor" => $clave
             ],
-            [ 
-              "campo_nombre" => "usuario_foto",
-              "campo_marcador" => ":foto",
-              "campo_valor" => $foto
+            [
+                "campo_nombre" => "usuario_foto",
+                "campo_marcador" => ":foto",
+                "campo_valor" => $foto
             ],
-            [ 
-              "campo_nombre" => "usuario_creado",
-              "campo_marcador" => ":usuario_creado",
-              "campo_valor" => date('Y-m-d H:i:s')
+            [
+                "campo_nombre" => "usuario_creado",
+                "campo_marcador" => ":usuario_creado",
+                "campo_valor" => date('Y-m-d H:i:s')
             ],
-            [ 
-              "campo_nombre" => "usuario_actualizado",
-              "campo_marcador" => ":usuario_actualizado",
-              "campo_valor" => date('Y-m-d H:i:s')
+            [
+                "campo_nombre" => "usuario_actualizado",
+                "campo_marcador" => ":usuario_actualizado",
+                "campo_valor" => date('Y-m-d H:i:s')
             ]
         ];
 
 
         $registrar_usuario = $this->guardar_datos("usuarios", $usuario_datos_reg);
 
-        if( $registrar_usuario->rowCount() == 1 ){
+        if ($registrar_usuario->rowCount() == 1) {
 
             $alerta = [
                 'tipo' => 'limpiar',
@@ -324,12 +322,11 @@ class UserController extends MainModel
                 'texto' => "El usuario $nombre $apellido ha sido registrado exitosamente.",
                 'icono' => 'info'
             ];
-
-        }else{
+        } else {
             // En caso de no poder registrar al usuario, borramos la imagen que gurdamos
-            if( is_file( $images_dir . $foto ) ){
-                chmod($images_dir . $foto ,0077);
-                unlink($images_dir . $foto );
+            if (is_file($images_dir . $foto)) {
+                chmod($images_dir . $foto, 0077);
+                unlink($images_dir . $foto);
             }
 
             $alerta = [
@@ -338,9 +335,180 @@ class UserController extends MainModel
                 'texto' => 'No es posible registrar al usuario, por favor inténtelo nuevamente.',
                 'icono' => 'error'
             ];
-
         }
 
         return json_encode($alerta);
+    }
+
+    # Listar usuarios
+    public function listar_usuarios_controlador($pagina, $numero_registros, $url, $busqueda ){
+
+        $pagina = $this->limpiar_cadena($pagina); 
+        $numero_registros = $this->limpiar_cadena($numero_registros); 
+
+        $url = $this->limpiar_cadena($url); 
+        $url = APP_URL . $url . '/';
+
+        $busqueda = $this->limpiar_cadena($busqueda);
+
+        //tabla
+        $tabla = '';
+        //Si pagina viene definida y pagina es mayor a 0, convertimos el valor de pagina a un entero
+                                                            //en caso contrario, pagina tendra el valor de 1
+        $pagina = ( isset($pagina) && $pagina > 0 ) ? (int) $pagina : 1;
+
+        $inicio = ($pagina > 0) ? ( ( $pagina * $numero_registros ) - $numero_registros ) : 0;      
+        
+
+        //La busqueda o la consulta para listar los registros
+        if( isset($busqueda) && $busqueda != ''){
+
+            $consulta_datos = "SELECT * FROM usuarios 
+                               WHERE (
+                                        (usuario_id != '" . $_SESSION['id'] ."' AND usuario_id != '1')
+                                         AND 
+                                        ( usuario_nombre LIKE '%$busqueda%' OR
+                                          usuario_apellido LIKE %$busqueda% OR
+                                          usuario_email LIKE %$busqueda% OR     
+                                          usuario_usuario LIKE %$busqueda%      )
+                                     )    
+                               ORDER BY usuario_nombre ASC
+                               LIMIT " . $inicio . "," . $numero_registros . ";";
+            
+            $consulta_total = "SELECT COUNT(usuario_id) FROM usuarios 
+                               WHERE (
+                                        (usuario_id != '" . $_SESSION['id'] ."' AND usuario_id != '1')
+                                         AND 
+                                        ( usuario_nombre LIKE '%$busqueda%' OR
+                                          usuario_apellido LIKE %$busqueda% OR
+                                          usuario_email LIKE %$busqueda% OR     
+                                          usuario_usuario LIKE %$busqueda%      )
+                                     )";
+
+        }else{
+
+            $consulta_datos = "SELECT * FROM usuarios 
+                               WHERE usuario_id != '" . $_SESSION['id'] ."'
+                               AND usuario_id != '1'
+                               ORDER BY usuario_nombre ASC
+                               LIMIT " . $inicio . "," . $numero_registros . ";";
+            
+            $consulta_total = "SELECT COUNT(usuario_id) FROM usuarios 
+                               WHERE usuario_id != '" . $_SESSION['id'] ."'
+                               AND usuario_id != '1';";
+
+        }
+
+
+        //obtenemos los datos
+        $datos = $this->ejecutar_consulta($consulta_datos);
+        $datos = $datos->fetchAll();
+        
+        //obtenemos el total de registros
+        $total = $this->ejecutar_consulta($consulta_total);
+        $total = (int) $total->fetchColumn();
+
+
+        $numero_paginas = ceil( $total / $numero_registros );
+
+        //creamos la tabla
+        $tabla .= '<div class="table-container">
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th class="has-text-centered">#</th>
+                                <th class="has-text-centered">Nombre</th>
+                                <th class="has-text-centered">Usuario</th>
+                                <th class="has-text-centered">Email</th>
+                                <th class="has-text-centered">Creado</th>
+                                <th class="has-text-centered">Actualizado</th>
+                                <th class="has-text-centered">Foto</th>
+                                <th class="has-text-centered" colspan="3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+
+
+                if( $total >= 1 && $pagina <= $numero_paginas  ){
+
+                    $contador = $inicio + 1;
+                    $pagina_inicio = $inicio + 1;
+
+                    foreach($datos as $dato  ){
+
+                        $tabla .= '
+                                    <tr class="has-text-start">
+                                        <td>' . $contador .'</td>
+                                        <td><small>'. $dato['usuario_nombre'] . ' ' . $dato['usuario_apellido'] . '(' . $dato['usuario_id'] .  ')</small></td>
+                                        <td>' . $dato['usuario_usuario'] . '</td>
+                                        <td>' . $dato['usuario_email'] . ' </td>
+                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_creado']) )  .'</td>
+                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_actualizado']) )  .'</td>
+                                        
+                                        <td>
+                                            <a href="' . APP_URL .'userPhoto/' . $dato['usuario_id']. '/" class="button is-info  is-small">Foto</a>
+                                        </td>
+                                        
+                                        <td>
+                                            <a href="' . APP_URL .'userUpdate/' . $dato['usuario_id']. '/" class="button is-info  is-small">Actualizar</a>
+                                        </td>
+
+                                        
+                                        <td>
+                                            <form action="' . APP_URL . 'ajax/usuarioAjax.php" class="FormularioAjax" method="post" autocomplete="off" >
+                                                <input type="hidden" name="modulo_usuario" value="eliminar">
+                                                <input type="hidden" name="usuario_id" value="' .  $dato['usuario_id'] . '">
+                                                <button type="submit" class="button is-danger is-small">Elimnar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                ';    
+
+                         $contador++;   
+                    }
+
+                    $pagina_final = $contador-1;
+
+
+
+                }else{
+
+                    if( $total >= 1 ){
+                          $tabla .= '<tr class="has-text-centered">
+                                       <td colspan="7">
+                                         <a href="'. $url . '1/" class="button is-link is-rounded is-small my-4 ">Haga click para recargar el listado.</a>
+                                       </td>                    
+                                    </tr>';  
+                    }else{
+                        $tabla .= '<tr class="has-text-centered">
+                                       <td colspan="7">
+                                          No hay registros en el sistema.
+                                       </td>
+                                  </tr>'; 
+
+                    }
+
+                }
+
+
+
+
+        $tabla .= '     </tbody>
+                    </table>
+                  </div>';   
+                  
+                  
+        if( $total >= 1 && $pagina <= $numero_paginas ){
+            $tabla .= '
+                        <p class="has-text-rught">
+                            Mostrando usuarios <b>' . $pagina_inicio . '</b> al <b>' . $pagina_final . '</b> de un <b>total de ' . $total . '</b>
+                        </p>
+                      '; 
+
+            $tabla .= $this->paginador_tablas($pagina, $numero_paginas, $url, 7);          
+        }
+        
+        return $tabla;
+
     }
 }
