@@ -1,22 +1,23 @@
 <div class="container-fluid">
     <div class="container is-fluid my-5 ">
 
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">Usuarios</h1>
+                <h2 class="subtitle">Nuevo usuario</h2>
+            </div>
+        </div>
+
         <div class="columns ">
 
             <!-- COLUMNA DERECHA -->
-            <div class="column is-9 " style="border: 1px solid #7777;">
+            <div class="column is-9" style="border: 1px solid #7777;">
 
 
-                <div class="columns">
-                    <div class="column">
-                        <h1 class="title">Usuarios</h1>
-                        <h2 class="subtitle">Nuevo usuario</h2>
-
-                    </div>
-                </div>
 
 
-                <form action="<?= APP_URL?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data" autocomplete="on">
+
+                <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data" autocomplete="on">
 
                     <input type="hidden" name="modulo_usuario" value="registrar">
 
@@ -37,9 +38,9 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="columns">
-                        
+
                         <!-- Usuario usuario -->
                         <div class="column is-6">
                             <div class="control">
@@ -47,17 +48,17 @@
                                 <input class="input is-small" type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}" name="usuario_usuario" id="usuario_usuario" maxlength="40" required>
                             </div>
                         </div>
-                        
+
                         <!-- Usuario Emal -->
                         <div class="column is-6">
                             <div class="control">
                                 <label for="email">Email: </label>
-                                <input class="input is-small" type="text" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="usuario_email" id="usuario_email" maxlength="30" >
+                                <input class="input is-small" type="text" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="usuario_email" id="usuario_email" maxlength="30">
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="columns">
                         <!-- Usuario Password 1 -->
                         <div class="column is-4">
@@ -66,7 +67,7 @@
                                 <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100" required>
                             </div>
                         </div>
-                        
+
                         <!-- Usuario Password 2 -->
                         <div class="column is-4">
                             <div class="control">
@@ -74,29 +75,29 @@
                                 <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100" required>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                     <hr>
-                    
+
                     <div class="columns">
                         <!-- Usuario Foto -->
-                        <div class="column is-5" >
+                        <div class="column is-5">
                             <div class="control">
                                 <label for="usuario_foto" class="file-label">Seleccione una foto de perfil:</label>
                                 <input class="button  is-small" type="file" name="usuario_foto" id="usuario_foto" value="" accept=".jpg, .png, .jpeg">
                             </div>
                             <small class="">Formato:.jpg, .jpeg, .png (Tamaño maximo: 5mb)</small>
                         </div>
-                        
+
                         <!-- Usuario Ouput foto -->
-                        <div class="column is-2 is-flex is-justify-content-center is-align-items-center mt-3"  style="border:1px solid #333; border-radius: 2px;">
+                        <div class="column is-2 is-flex is-justify-content-center is-align-items-center mt-3" style="border:1px solid #333; border-radius: 2px;">
                             <output class="is-rounded" id="imagePreview">
-                            <small>Foto</small>
+                                <small>Foto</small>
                             </output>
-                            
+
                         </div>
-                        
+
 
                     </div>
 
@@ -112,7 +113,7 @@
 
                         </div>
 
-                       
+
                     </div>
 
                 </form>
@@ -121,14 +122,14 @@
 
 
             <!-- COLUMNA IZQUIERDA -->
-            
+
             <div class="column is-3 " style="border: 0px solid #9999;">
                 <h1 class="title has-text-warning">Quedamos en el minuto 00.00 min</h1>
                 <p class="subtitle">Del video 36 → CRUD | USUARIOS → PARTE 3</p>
                 <p>Subir foto del usuario al servidor</p>
 
-            </div> 
-           
+            </div>
+
             <!-- FIN COLUMNA IZQUIERDA -->
 
         </div>
@@ -137,6 +138,4 @@
     </div>
 </div>
 
-<script src="<?= APP_URL;?>app/views/js/mostrar_imagen_seleccionada.js"></script>
-
-
+<script src="<?= APP_URL; ?>app/views/js/mostrar_imagen_seleccionada.js"></script>
