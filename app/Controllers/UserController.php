@@ -5,8 +5,7 @@ namespace app\Controllers;
 use app\Models\MainModel;
 use DateTime;
 
-class UserController extends MainModel
-{
+class UserController extends MainModel {
 
     # Controlador para registrar un usuario #
     public function registrar_usuario_controlador()    {
@@ -260,6 +259,9 @@ class UserController extends MainModel
                     'texto' => 'No es posible subir la imagen en este momento..',
                     'icono' => 'error'
                 ];
+
+                return json_encode($alerta);
+                exit();
             }
         } else {
             $foto = '';
@@ -455,7 +457,7 @@ class UserController extends MainModel
 
                                         
                                         <td>
-                                            <form action="' . APP_URL . 'ajax/usuarioAjax.php" class="FormularioAjax" method="post" autocomplete="off" >
+                                            <form action="' . APP_URL . 'app/ajax/usuario_ajax.php" class="FormularioAjax" method="POST" autocomplete="off" >
                                                 <input type="hidden" name="modulo_usuario" value="eliminar">
                                                 <input type="hidden" name="usuario_id" value="' .  $dato['usuario_id'] . '">
                                                 <button type="submit" class="button is-danger is-small">Elimnar</button>
@@ -481,8 +483,8 @@ class UserController extends MainModel
                                     </tr>';  
                     }else{
                         $tabla .= '<tr class="has-text-centered">
-                                       <td colspan="7">
-                                          No hay registros en el sistema.
+                                       <td colspan="8">
+                                          <p class="my-2">No hay registros en el sistema.</p>
                                        </td>
                                   </tr>'; 
 
@@ -500,7 +502,7 @@ class UserController extends MainModel
                   
         if( $total >= 1 && $pagina <= $numero_paginas ){
             $tabla .= '
-                        <p class="has-text-rught">
+                        <p class="has-text-right mb-3">
                             Mostrando usuarios <b>' . $pagina_inicio . '</b> al <b>' . $pagina_final . '</b> de un <b>total de ' . $total . '</b>
                         </p>
                       '; 
@@ -510,5 +512,76 @@ class UserController extends MainModel
         
         return $tabla;
 
+    }
+
+
+    # Eliminar usuario
+    public function eliminar_usuario_controlador(){
+
+        $id = $this->limpiar_cadena($_POST['usuario_id']);
+
+        # Verificando usuario principal #
+        if($id == 1){
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'No es posible eliminar al usuario principal',
+                'icono' => 'error'
+            ];
+    
+            return json_encode($alerta);
+        }
+
+        # Verificando si el usuario existe #
+        
+        $sql = "SELECT * FROM usuarios WHERE usuario_id = '$id'";
+        $datos = $this->ejecutar_consulta($sql);
+        
+        if( $datos->rowCount() <= 0 ){
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'ocurrió un error inesperado',
+                'texto' => 'El usuario no existe en la base de datos.',
+                'icono' => 'error'
+            ];
+    
+            return json_encode($alerta);;
+        }else{
+            $datos = $datos->fetch();
+        }
+
+         # Eliminando al usuario #
+
+         $eliminar_usuario = $this->eliminar_registro('usuarios','usuario_id',$id);
+
+         if($eliminar_usuario->rowCount() == 1){
+
+                //Eliminamos la foto del usuario del directorio 
+            if( is_file('../views/fotos/' . $datos['usuario_foto']) ){
+                chmod('../views/fotos/' . $datos['usuario_foto'], 0777);
+                unlink('../views/fotos/' . $datos['usuario_foto']);
+            }
+
+            $alerta = [
+                'tipo' => 'recargar',
+                'titulo' => 'Usuario eliminado',
+                'texto' => 'El usuario ' . ucwords($datos['usuario_nombre']) . ' ' . ucwords($datos['usuario_apellido']) . ' ha sido eliminado exitosamente de la base de datos.',
+                'icono' => 'success'
+            ];
+            
+        }else{
+            
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'ocurrió un error inesperado',
+                'texto' => 'No ha sido posible eliminar al usuario ' . ucwords($datos['usuario_nombre']) . ' ' . ucwords($datos['usuario_apellido']) . '',
+                'icono' => 'error'
+            ];
+
+        }
+        
+        return json_encode($alerta);        
+        
     }
 }

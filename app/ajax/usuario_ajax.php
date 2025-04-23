@@ -13,6 +13,10 @@ if( isset($_POST['modulo_usuario']) ){
         echo $UserController->registrar_usuario_controlador();
     }
 
+    if( $_POST['modulo_usuario'] == 'eliminar' ){
+        echo $UserController->eliminar_usuario_controlador();
+    }
+
 }else{
     session_destroy();
     header('Location:' . APP_URL . 'login/');

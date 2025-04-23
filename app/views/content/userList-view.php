@@ -3,8 +3,16 @@
 
         <div class="columns">
             <div class="column is-12">
-                <h1 class="title">Usurios</h1>
-                <h1 class="subtitle">Lista de usurios</h1>
+                <div class="is-flex is-justify-content-space-between">
+                    <div>
+                        <h1 class="title">Usurios</h1>
+                        <h1 class="subtitle">Lista de usurios</h1>
+                    </div>
+                <div>
+                    <a href="<?= APP_URL;?>userNew/" type="button" class="button is-primary">Nuevo usuario</a>
+                </div>
+                </div>
+
 
             </div>
         </div>
