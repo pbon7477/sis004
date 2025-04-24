@@ -11,7 +11,7 @@
         <div class="columns ">
 
             <!-- COLUMNA DERECHA -->
-            <div class="column is-9" style="border: 1px solid #7777;">
+            <div class="column is-9">
 
 
 
@@ -123,11 +123,8 @@
 
             <!-- COLUMNA IZQUIERDA -->
 
-            <div class="column is-3 " style="border: 0px solid #9999;">
-                <h1 class="title has-text-warning">Quedamos en el minuto 00.00 min</h1>
-                <p class="subtitle">Del video 36 → CRUD | USUARIOS → PARTE 3</p>
-                <p>Subir foto del usuario al servidor</p>
-
+            <div class="column is-3 m-1" >
+              
             </div>
 
             <!-- FIN COLUMNA IZQUIERDA -->

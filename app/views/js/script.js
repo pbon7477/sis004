@@ -23,3 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+
+
+//Codigo para el boton volver (reutilizable en todas las paginas)
+document.querySelector('#btnVolver').addEventListener('click',(e)=>{
+  e.preventDefault();
+  window.history.back();
+});

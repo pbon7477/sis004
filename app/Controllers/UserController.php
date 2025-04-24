@@ -452,7 +452,7 @@ class UserController extends MainModel {
                                         </td>
                                         
                                         <td>
-                                            <a href="' . APP_URL .'userUpdate/' . $dato['usuario_id']. '/" class="button is-info  is-small">Actualizar</a>
+                                            <a href="' . APP_URL .'userUpdate/' . $dato['usuario_id']. '/" class="button is-warning  is-small">Actualizar</a>
                                         </td>
 
                                         

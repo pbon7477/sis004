@@ -3,7 +3,9 @@ $selected = str_replace('/','',$_GET['views']);;
 
 ?>
 
-<nav class="navbar is-dark">
+
+
+<nav class="navbar is-dark nav-sticky">
   <div class="navbar-brand">
     <a class="navbar-item" href="<?= APP_URL;?>dashboard/">
       <img src="<?= APP_URL;?>/app/views/img/logo.png" alt="bulma" width="28" height="28">
