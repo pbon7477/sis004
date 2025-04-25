@@ -17,6 +17,10 @@ if( isset($_POST['modulo_usuario']) ){
         echo $UserController->eliminar_usuario_controlador();
     }
 
+    if( $_POST['modulo_usuario'] == 'actualizar' ){
+        echo $UserController->actualizar_usuario_controlador();
+    }
+
 }else{
     session_destroy();
     header('Location:' . APP_URL . 'login/');

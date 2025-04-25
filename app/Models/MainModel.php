@@ -138,22 +138,23 @@ class MainModel {
         $contador=0;
         foreach( $datos as $clave ){
 
-            if($contador >= 1) { $sql .=','; };
-            $sql .= $clave["campo_nombre"] . "=" . $clave["campo_marcador"];
+            if($contador >= 1) { $sql .=', '; };
+            $sql .= $clave["campo_nombre"] . " = " . $clave["campo_marcador"];
             $contador++;
         }
 
-        $sql .= " WHERE " . $condicion["condicion_campo"] . "=" . $condicion["condicion_marcador"] . ";";
+        $sql .= " WHERE " . $condicion["condicion_campo"] . " = " . $condicion["condicion_marcador"] . ";";
         
         $query = $this->conectar()->prepare($sql);
 
         foreach($datos as $clave){
-            $query->bindParam($clave["campo_marcador"], $clave["campo_marcador"]);
+            $query->bindParam($clave["campo_marcador"], $clave["campo_valor"]);
         }
 
         $query->bindParam($condicion["condicion_marcador"], $condicion["condicion_valor"]);
 
         $query->execute();
+       
         return $query;
     }
 

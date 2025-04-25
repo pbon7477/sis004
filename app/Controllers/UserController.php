@@ -5,10 +5,11 @@ namespace app\Controllers;
 use app\Models\MainModel;
 use DateTime;
 
-class UserController extends MainModel {
+class UserController extends MainModel{
 
     # Controlador para registrar un usuario #
-    public function registrar_usuario_controlador()    {
+    public function registrar_usuario_controlador()
+    {
         # Almacenando datos #
         $nombre = $this->limpiar_cadena($_POST['usuario_nombre']);
         $apellido = $this->limpiar_cadena($_POST['usuario_apellido']);
@@ -343,12 +344,13 @@ class UserController extends MainModel {
     }
 
     # Listar usuarios
-    public function listar_usuarios_controlador($pagina, $numero_registros, $url, $busqueda ){
+    public function listar_usuarios_controlador($pagina, $numero_registros, $url, $busqueda)
+    {
 
-        $pagina = $this->limpiar_cadena($pagina); 
-        $numero_registros = $this->limpiar_cadena($numero_registros); 
+        $pagina = $this->limpiar_cadena($pagina);
+        $numero_registros = $this->limpiar_cadena($numero_registros);
 
-        $url = $this->limpiar_cadena($url); 
+        $url = $this->limpiar_cadena($url);
         $url = APP_URL . $url . '/';
 
         $busqueda = $this->limpiar_cadena($busqueda);
@@ -356,18 +358,18 @@ class UserController extends MainModel {
         //tabla
         $tabla = '';
         //Si pagina viene definida y pagina es mayor a 0, convertimos el valor de pagina a un entero
-                                                            //en caso contrario, pagina tendra el valor de 1
-        $pagina = ( isset($pagina) && $pagina > 0 ) ? (int) $pagina : 1;
+        //en caso contrario, pagina tendra el valor de 1
+        $pagina = (isset($pagina) && $pagina > 0) ? (int) $pagina : 1;
 
-        $inicio = ($pagina > 0) ? ( ( $pagina * $numero_registros ) - $numero_registros ) : 0;      
-        
+        $inicio = ($pagina > 0) ? (($pagina * $numero_registros) - $numero_registros) : 0;
+
 
         //La busqueda o la consulta para listar los registros
-        if( isset($busqueda) && $busqueda != ''){
+        if (isset($busqueda) && $busqueda != '') {
 
             $consulta_datos = "SELECT * FROM usuarios 
                                WHERE (
-                                        (usuario_id != '" . $_SESSION['id'] ."' AND usuario_id != '1')
+                                        (usuario_id != '" . $_SESSION['id'] . "' AND usuario_id != '1')
                                          AND 
                                         ( usuario_nombre LIKE '%$busqueda%' OR
                                           usuario_apellido LIKE %$busqueda% OR
@@ -376,42 +378,40 @@ class UserController extends MainModel {
                                      )    
                                ORDER BY usuario_nombre ASC
                                LIMIT " . $inicio . "," . $numero_registros . ";";
-            
+
             $consulta_total = "SELECT COUNT(usuario_id) FROM usuarios 
                                WHERE (
-                                        (usuario_id != '" . $_SESSION['id'] ."' AND usuario_id != '1')
+                                        (usuario_id != '" . $_SESSION['id'] . "' AND usuario_id != '1')
                                          AND 
                                         ( usuario_nombre LIKE '%$busqueda%' OR
                                           usuario_apellido LIKE %$busqueda% OR
                                           usuario_email LIKE %$busqueda% OR     
                                           usuario_usuario LIKE %$busqueda%      )
                                      )";
-
-        }else{
+        } else {
 
             $consulta_datos = "SELECT * FROM usuarios 
-                               WHERE usuario_id != '" . $_SESSION['id'] ."'
+                               WHERE usuario_id != '" . $_SESSION['id'] . "'
                                AND usuario_id != '1'
                                ORDER BY usuario_nombre ASC
                                LIMIT " . $inicio . "," . $numero_registros . ";";
-            
-            $consulta_total = "SELECT COUNT(usuario_id) FROM usuarios 
-                               WHERE usuario_id != '" . $_SESSION['id'] ."'
-                               AND usuario_id != '1';";
 
+            $consulta_total = "SELECT COUNT(usuario_id) FROM usuarios 
+                               WHERE usuario_id != '" . $_SESSION['id'] . "'
+                               AND usuario_id != '1';";
         }
 
 
         //obtenemos los datos
         $datos = $this->ejecutar_consulta($consulta_datos);
         $datos = $datos->fetchAll();
-        
+
         //obtenemos el total de registros
         $total = $this->ejecutar_consulta($consulta_total);
         $total = (int) $total->fetchColumn();
 
 
-        $numero_paginas = ceil( $total / $numero_registros );
+        $numero_paginas = ceil($total / $numero_registros);
 
         //creamos la tabla
         $tabla .= '<div class="table-container">
@@ -431,28 +431,28 @@ class UserController extends MainModel {
                         <tbody>';
 
 
-                if( $total >= 1 && $pagina <= $numero_paginas  ){
+        if ($total >= 1 && $pagina <= $numero_paginas) {
 
-                    $contador = $inicio + 1;
-                    $pagina_inicio = $inicio + 1;
+            $contador = $inicio + 1;
+            $pagina_inicio = $inicio + 1;
 
-                    foreach($datos as $dato  ){
+            foreach ($datos as $dato) {
 
-                        $tabla .= '
+                $tabla .= '
                                     <tr class="has-text-start">
-                                        <td>' . $contador .'</td>
-                                        <td><small>'. $dato['usuario_nombre'] . ' ' . $dato['usuario_apellido'] . '(' . $dato['usuario_id'] .  ')</small></td>
+                                        <td>' . $contador . '</td>
+                                        <td><small>' . $dato['usuario_nombre'] . ' ' . $dato['usuario_apellido'] . '(' . $dato['usuario_id'] .  ')</small></td>
                                         <td>' . $dato['usuario_usuario'] . '</td>
                                         <td>' . $dato['usuario_email'] . ' </td>
-                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_creado']) )  .'</td>
-                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_actualizado']) )  .'</td>
+                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_creado']))  . '</td>
+                                        <td>' . date("d-m-Y h:i:s A", strtotime($dato['usuario_actualizado']))  . '</td>
                                         
                                         <td>
-                                            <a href="' . APP_URL .'userPhoto/' . $dato['usuario_id']. '/" class="button is-info  is-small">Foto</a>
+                                            <a href="' . APP_URL . 'userPhoto/' . $dato['usuario_id'] . '/" class="button is-info  is-small">Foto</a>
                                         </td>
                                         
                                         <td>
-                                            <a href="' . APP_URL .'userUpdate/' . $dato['usuario_id']. '/" class="button is-warning  is-small">Actualizar</a>
+                                            <a href="' . APP_URL . 'userUpdate/' . $dato['usuario_id'] . '/" class="button is-warning  is-small">Actualizar</a>
                                         </td>
 
                                         
@@ -464,80 +464,75 @@ class UserController extends MainModel {
                                             </form>
                                         </td>
                                     </tr>
-                                ';    
+                                ';
 
-                         $contador++;   
-                    }
+                $contador++;
+            }
 
-                    $pagina_final = $contador-1;
+            $pagina_final = $contador - 1;
+        } else {
 
-
-
-                }else{
-
-                    if( $total >= 1 ){
-                          $tabla .= '<tr class="has-text-centered">
+            if ($total >= 1) {
+                $tabla .= '<tr class="has-text-centered">
                                        <td colspan="7">
-                                         <a href="'. $url . '1/" class="button is-link is-rounded is-small my-4 ">Haga click para recargar el listado.</a>
+                                         <a href="' . $url . '1/" class="button is-link is-rounded is-small my-4 ">Haga click para recargar el listado.</a>
                                        </td>                    
-                                    </tr>';  
-                    }else{
-                        $tabla .= '<tr class="has-text-centered">
+                                    </tr>';
+            } else {
+                $tabla .= '<tr class="has-text-centered">
                                        <td colspan="8">
                                           <p class="my-2">No hay registros en el sistema.</p>
                                        </td>
-                                  </tr>'; 
-
-                    }
-
-                }
+                                  </tr>';
+            }
+        }
 
 
 
 
         $tabla .= '     </tbody>
                     </table>
-                  </div>';   
-                  
-                  
-        if( $total >= 1 && $pagina <= $numero_paginas ){
+                  </div>';
+
+
+        if ($total >= 1 && $pagina <= $numero_paginas) {
             $tabla .= '
                         <p class="has-text-right mb-3">
                             Mostrando usuarios <b>' . $pagina_inicio . '</b> al <b>' . $pagina_final . '</b> de un <b>total de ' . $total . '</b>
                         </p>
-                      '; 
+                      ';
 
-            $tabla .= $this->paginador_tablas($pagina, $numero_paginas, $url, 7);          
+            $tabla .= $this->paginador_tablas($pagina, $numero_paginas, $url, 7);
         }
-        
-        return $tabla;
 
+        return $tabla;
     }
 
 
     # Eliminar usuario
-    public function eliminar_usuario_controlador(){
+    public function eliminar_usuario_controlador()
+    {
 
         $id = $this->limpiar_cadena($_POST['usuario_id']);
 
         # Verificando usuario principal #
-        if($id == 1){
+        if ($id == 1) {
             $alerta = [
                 'tipo' => 'simple',
                 'titulo' => 'Ocurrió un error inesperado',
                 'texto' => 'No es posible eliminar al usuario principal',
                 'icono' => 'error'
             ];
-    
+
             return json_encode($alerta);
         }
 
         # Verificando si el usuario existe #
-        
+
         $sql = "SELECT * FROM usuarios WHERE usuario_id = '$id'";
         $datos = $this->ejecutar_consulta($sql);
-        
-        if( $datos->rowCount() <= 0 ){
+
+        if ($datos->rowCount() <= 0) {
 
             $alerta = [
                 'tipo' => 'simple',
@@ -545,20 +540,20 @@ class UserController extends MainModel {
                 'texto' => 'El usuario no existe en la base de datos.',
                 'icono' => 'error'
             ];
-    
+
             return json_encode($alerta);;
-        }else{
+        } else {
             $datos = $datos->fetch();
         }
 
-         # Eliminando al usuario #
+        # Eliminando al usuario #
 
-         $eliminar_usuario = $this->eliminar_registro('usuarios','usuario_id',$id);
+        $eliminar_usuario = $this->eliminar_registro('usuarios', 'usuario_id', $id);
 
-         if($eliminar_usuario->rowCount() == 1){
+        if ($eliminar_usuario->rowCount() == 1) {
 
-                //Eliminamos la foto del usuario del directorio 
-            if( is_file('../views/fotos/' . $datos['usuario_foto']) ){
+            //Eliminamos la foto del usuario del directorio 
+            if (is_file('../views/fotos/' . $datos['usuario_foto'])) {
                 chmod('../views/fotos/' . $datos['usuario_foto'], 0777);
                 unlink('../views/fotos/' . $datos['usuario_foto']);
             }
@@ -569,19 +564,370 @@ class UserController extends MainModel {
                 'texto' => 'El usuario ' . ucwords($datos['usuario_nombre']) . ' ' . ucwords($datos['usuario_apellido']) . ' ha sido eliminado exitosamente de la base de datos.',
                 'icono' => 'success'
             ];
-            
-        }else{
-            
+        } else {
+
             $alerta = [
                 'tipo' => 'simple',
                 'titulo' => 'ocurrió un error inesperado',
                 'texto' => 'No ha sido posible eliminar al usuario ' . ucwords($datos['usuario_nombre']) . ' ' . ucwords($datos['usuario_apellido']) . '',
                 'icono' => 'error'
             ];
+        }
+
+        return json_encode($alerta);
+    }
+
+
+    # Actualizar usuario
+
+    public function actualizar_usuario_controlador()
+    {
+
+        $id = $this->limpiar_cadena($_POST['usuario_id']);
+        # Comprobando si el usuario existe
+
+        $sql = "SELECT * FROM usuarios WHERE usuario_id = '$id';";
+        $query = $this->ejecutar_consulta($sql);
+
+        if ($query->rowCount() <= 0) {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'El usuario no existe en el sistema.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+        } else {
+            $datos_usuario = $query->fetch();
+        }
+
+
+        # Verificamos que  el administrador haya llenado las credenciales
+
+        $admin_usuario = $this->limpiar_cadena($_POST['administrador_usuario']);
+        $admin_clave = $this->limpiar_cadena($_POST['administrador_clave']);
+
+        if ($admin_usuario == '' && $admin_clave == '') {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'No ha llenado todos los campos que son obligatorios, que corresponden a  su CLAVE y USUARIO para poder realizar la actualización. ',
+                'icono' => 'error'
+            ];
+            return json_encode($alerta);
+        }
+
+        # verificamos la integridad de las credenciales del ADMINISTRADOR
+
+        if ($this->verificar_datos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}', $admin_usuario)) {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'Su USUARIO no coincide con el formato solicitado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+        }
+
+        if ($this->verificar_datos('[a-zA-Z0-9$@.\-]{6,100}', $admin_clave)) {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'Su CLAVE no coincide con el formato solicitado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+        }
+
+        # Verificando al ADMINISTRADOR
+        $sql = "SELECT * FROM usuarios WHERE usuario_usuario = '$admin_usuario'  AND usuario_id = " . $_SESSION['id'] . ";";
+        $check_admin = $this->ejecutar_consulta($sql);
+
+        if ($check_admin->rowCount() == 1) {
+
+            // Verificamos que la contraseña del ADMINISTRADOR COINCIDA CON LA QUE ESTA EN  LA BASE DE DATOS 
+            $datos_admin = $check_admin->fetch();
+
+            if ($datos_admin['usuario_usuario'] != $admin_usuario  ||  !password_verify($admin_clave, $datos_admin['usuario_clave'])) {
+
+                $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Ocurrió un error inesperado',
+                    'texto' => 'USUARIO o CLAVE de administrador incorrectos( existe, pero no coinciden las claves ).',
+                    'icono' => 'error'
+                ];
+
+                return json_encode($alerta);
+            }
+        } else {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'USUARIO o CLAVE de administrador incorrectos( no existe ).',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+        }
+
+
+
+        # ALMACENANDO DATOS DEL USUARIOS ( ACTUALIZACIÓN )
+
+        # Almacenando datos #
+        $nombre = $this->limpiar_cadena($_POST['usuario_nombre']);
+        $apellido = $this->limpiar_cadena($_POST['usuario_apellido']);
+        $usuario = $this->limpiar_cadena($_POST['usuario_usuario']);
+
+        $email = $this->limpiar_cadena($_POST['usuario_email']);
+
+        $clave_1 = $this->limpiar_cadena($_POST['usuario_clave_1']);
+        $clave_2 = $this->limpiar_cadena($_POST['usuario_clave_2']);
+
+
+
+        # verificamos campos obligatorios #
+        if ($nombre == '' || $apellido == '' || $usuario == '') {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'No se han llenado todos los campos obligatorios',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+            exit();
+        }
+
+        # verificar integridad de los datos #
+
+        //Nombre
+        if ($this->verificar_datos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}', $nombre)) {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'El NOMBRE no coincide con el formato solicitado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+            exit();
+        }
+
+        //Apellido
+        if ($this->verificar_datos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}', $apellido)) {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'El APELLIDO no coincide con el formato solicitado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+            exit();
+        }
+
+        //Usuario
+        if ($this->verificar_datos('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}', $usuario)) {
+
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'El USUARIO no coincide con el formato solicitado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+            exit();
+        }
+
+
+
+        # verificar email (El email no es obligatorio, 
+        # pero si viene con algo y lo que viene es diferente de los que hay en la base de datos?)
+
+        if ($email != '' && $datos_usuario['usuario_email'] != $email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                // Verificamos que el email no exista en la BBDD
+                $sql = "SELECT usuario_email FROM usuarios WHERE usuario_email = '$email';";
+                $check_email = $this->ejecutar_consulta($sql);
+
+                if ($check_email->rowCount() > 0) {
+
+                    $alerta = [
+                        'tipo' => 'simple',
+                        'titulo' => 'Ocurrió un error inesperado',
+                        'texto' => 'El EMAIL que esta intentando introducir ya se encuentra registrado.',
+                        'icono' => 'error'
+                    ];
+
+                    return json_encode($alerta);
+                    exit();
+                }
+            } else {
+                $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Ocurrió un error inesperado',
+                    'texto' => 'Ha ingresado un EMAIL no valido.',
+                    'icono' => 'error'
+                ];
+
+                return json_encode($alerta);
+                exit();
+            }
+        }
+
+
+
+        # Verificamos que la clave tenga algo 
+
+        if ($clave_1 != '' && $clave_2 != '') {
+
+            # Si trae algo, verificamos la intgridad de las clave 1 y 2
+            if ($this->verificar_datos('[a-zA-Z0-9$@.\-]{6,100}', $clave_1) || $this->verificar_datos('[a-zA-Z0-9$@.\-]{6,100}', $clave_2)) {
+
+                $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Ocurrió un error inesperado',
+                    'texto' => 'Los PASSWORD no coinciden con el formato solicitado.',
+                    'icono' => 'error'
+                ];
+
+                return json_encode($alerta);
+                exit();
+            }
+
+
+            // Verificamos igualdad de las claves.    
+            if ($clave_1 !== $clave_2) {
+
+                $alerta = [
+                    'tipo' => 'simple',
+                    'titulo' => 'Ocurrió un error inesperado',
+                    'texto' => 'Los PASSWORD no coinciden.',
+                    'icono' => 'error'
+                ];
+
+                return json_encode($alerta);
+                exit();
+
+            }else{
+
+                // Si son iguales, Encriptamos el password.   
+                $clave = password_hash($clave_1, PASSWORD_BCRYPT, ["cost" => 10]);
+
+            }
+
+        } else {
+
+            //Si la clave viene vacia, dejamos la que existe en la base de datos.
+            $clave = $datos_usuario['usuario_clave'];
+        }
+
+
+
+        # verificamos si el usuario_usuaurio es desigual al entrante
+        if( $datos_usuario['usuario_usuario'] != $usuario ){
+            
+            # Verificamos que el usuario no exista en la base de datos
+            $sql = "SELECT usuario_usuario FROM usuarios WHERE usuario_usuario = '$usuario';";
+        $check_usuario = $this->ejecutar_consulta($sql);
+
+        if ($check_usuario->rowCount() > 0) {
+            $alerta = [
+                'tipo' => 'simple',
+                'titulo' => 'Ocurrió un error inesperado',
+                'texto' => 'El USUARIO que esta intentando introducir ya se encuentra registrado.',
+                'icono' => 'error'
+            ];
+
+            return json_encode($alerta);
+            exit();
+        }
+
+        }else{
+            $usuario = $datos_usuario['usuario_usuario'];
+        }
+
+
+        # PREPARAMOS EL ARRAY PARA ACTUALIZAR LOS DATOS DEL USUARIO
+
+        $usuario_datos_up = [
+            [
+                "campo_nombre" => "usuario_nombre",
+                "campo_marcador" => ":nombre",
+                "campo_valor" => $nombre
+            ],
+            [
+                "campo_nombre" => "usuario_apellido",
+                "campo_marcador" => ":apellido",
+                "campo_valor" => $apellido
+            ],
+            [
+                "campo_nombre" => "usuario_email",
+                "campo_marcador" => ":email",
+                "campo_valor" => $email
+            ],
+            [
+                "campo_nombre" => "usuario_usuario",
+                "campo_marcador" => ":usuario",
+                "campo_valor" => $usuario
+            ],
+            [
+                "campo_nombre" => "usuario_clave",
+                "campo_marcador" => ":clave",
+                "campo_valor" => $clave
+            ],
+            [
+                "campo_nombre" => "usuario_actualizado",
+                "campo_marcador" => ":usuario_actualizado",
+                "campo_valor" => date('Y-m-d H:i:s')
+            ]
+        ];
+
+        $condicion = [
+            'condicion_campo' => 'usuario_id',
+            'condicion_marcador' => ':id',
+            'condicion_valor' => $id
+        ];
+
+        # Actualizando datos
+        $actualizar_usuario = $this->actualizar_datos('usuarios',$usuario_datos_up, $condicion);
+
+        if( $actualizar_usuario ){
+
+            // Si es mi misma cuenta la que estoy almacenando, sobrescribimos los valores de las variables de session actual.
+
+            if($id == $_SESSION['id']){
+                $_SESSION['nombre'] = $nombre;
+                $_SESSION['apellido'] = $apellido;
+                $_SESSION['usuario'] = $usuario;
+            }
+
+
+            $alerta = ['tipo' =>'recargar',
+                       'titulo' => 'Usuario actualizado',
+                       'texto' => 'Los datos del usuario ' . $datos_usuario['usuario_nombre'] . ' ' . $datos_usuario['usuario_apellido'] . ' han sido actualizados exitosamente.',
+                       'icono' => 'success'
+                      ];
+        }else{
+            $alerta = ['tipo' =>'simple',
+                       'titulo' => 'ocurrió un error inesperado.',
+                       'texto' => 'No ha sido posible actualizar los datos del usuario.',
+                       'icono' => 'error'
+                      ];
 
         }
-        
-        return json_encode($alerta);        
-        
+
+        return json_encode($alerta);
     }
 }

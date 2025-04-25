@@ -31,7 +31,7 @@
             <h1>Otro contenido</h1>
         </div>
         <div class="columns is-flex is-justify-content-center">
-            <h2 class="subtitle">¡Bienvenido User nombre</h2>
+            <h2 class="subtitle">¡Bienvenido <b><?= $_SESSION['nombre'] .  ' '  . $_SESSION['apellido']; ?></b></h2>
         </div>
     </div>
 </section>
