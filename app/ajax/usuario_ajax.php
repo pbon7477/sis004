@@ -21,6 +21,14 @@ if( isset($_POST['modulo_usuario']) ){
         echo $UserController->actualizar_usuario_controlador();
     }
 
+    if($_POST["modulo_usuario"] == 'eliminar_foto'){
+        echo $UserController->eliminar_foto_controlador();
+    }
+
+    if( $_POST['modulo_usuario'] == 'actualizar_foto' ){
+        echo $UserController->actualizar_foto_controlador();
+    }
+
 }else{
     session_destroy();
     header('Location:' . APP_URL . 'login/');

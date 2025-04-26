@@ -603,7 +603,7 @@ class UserController extends MainModel{
         }
 
 
-        # Verificamos que  el administrador haya llenado las credenciales
+        # Verificamos que  el administrador lleno los campos de sus credenciales
 
         $admin_usuario = $this->limpiar_cadena($_POST['administrador_usuario']);
         $admin_clave = $this->limpiar_cadena($_POST['administrador_clave']);
@@ -650,7 +650,7 @@ class UserController extends MainModel{
 
         if ($check_admin->rowCount() == 1) {
 
-            // Verificamos que la contraseña del ADMINISTRADOR COINCIDA CON LA QUE ESTA EN  LA BASE DE DATOS 
+            // Verificamos que la contraseña del ADMINISTRADOR COINCIDA CON LA QUE ESTA EN LA BASE DE DATOS 
             $datos_admin = $check_admin->fetch();
 
             if ($datos_admin['usuario_usuario'] != $admin_usuario  ||  !password_verify($admin_clave, $datos_admin['usuario_clave'])) {
@@ -658,7 +658,7 @@ class UserController extends MainModel{
                 $alerta = [
                     'tipo' => 'simple',
                     'titulo' => 'Ocurrió un error inesperado',
-                    'texto' => 'USUARIO o CLAVE de administrador incorrectos( existe, pero no coinciden las claves ).',
+                    'texto' => 'USUARIO o CLAVE de administrador incorrectos.(1)',
                     'icono' => 'error'
                 ];
 
@@ -668,7 +668,7 @@ class UserController extends MainModel{
             $alerta = [
                 'tipo' => 'simple',
                 'titulo' => 'Ocurrió un error inesperado',
-                'texto' => 'USUARIO o CLAVE de administrador incorrectos( no existe ).',
+                'texto' => 'USUARIO o CLAVE de administrador incorrectos.(0)',
                 'icono' => 'error'
             ];
 
@@ -930,4 +930,45 @@ class UserController extends MainModel{
 
         return json_encode($alerta);
     }
+
+
+
+    # Eliminar foto
+
+    public function eliminar_foto_controlador(){
+        
+        $id = $this->limpiar_cadena($_POST['usuario_id']);
+
+        $alerta = [
+            'tipo' => 'simple',
+            'titulo' => 'Esta llegando al controlador',
+            'texto' => 'Aqui sera en donde ELIMINAREMOS la foto del usuario con el id: '. $id . '',
+            'icono' => 'error'
+        ];
+
+        return json_encode($alerta);
+        
+    }
+
+
+
+
+    # Actualizar foto 
+
+    public function actualizar_foto_controlador(){
+
+        $id = $this->limpiar_cadena($_POST['usuario_id']);
+
+        $alerta = [
+            'tipo' => 'simple',
+            'titulo' => 'Esta llegando al controlador',
+            'texto' => 'Aqui sera en donde ACTUALIZAREMOS la foto del usuario con el id: '. $id . '',
+            'icono' => 'error'
+        ];
+
+        return json_encode($alerta);
+        
+    }
+
+
 }
