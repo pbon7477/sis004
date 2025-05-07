@@ -18,7 +18,7 @@ if ($datos_usuario->rowCount() == 1) :
 
 
     <div class="container-fluid">
-        <div class="container is-fluid mt-5">
+        <div class="container  mt-5">
 
             <div class="columns">
                 <div class="column is-12">

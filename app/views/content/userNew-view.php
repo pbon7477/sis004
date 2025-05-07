@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="container is-fluid my-5 ">
+    <div class="container  my-5 ">
 
         <div class="columns">
             <div class="column">

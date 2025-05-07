@@ -26,8 +26,10 @@ if( isset($_POST['modulo_usuario']) ){
     }
 
     if( $_POST['modulo_usuario'] == 'actualizar_foto' ){
-        echo $UserController->actualizar_foto_controlador();
+        echo $UserController->actualizar_foto_usuario_controlador();
     }
+ 
+    
 
 }else{
     session_destroy();

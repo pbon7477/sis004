@@ -17,7 +17,7 @@ if ($datos_usuario->rowCount() == 1) {
     $id = $datos_usuario['usuario_id'];
     $existe = true;
 } else {
-    echo 'No existe el usuario';
+
     $existe = false;
 }
 
@@ -27,9 +27,9 @@ if ($datos_usuario->rowCount() == 1) {
 
 <div class="container-fluid">
 
-    <div class="container is-fluid my-5 ">
-
+    <div class="container my-5">
         <div class="columns">
+
 
             <?php if ($id == $_SESSION['id']) :  ?>
 
@@ -50,119 +50,170 @@ if ($datos_usuario->rowCount() == 1) {
         </div>
 
 
-        <?php if ($existe) : ?>
-            <div class="columns ">
-
-                <!-- COLUMNA DERECHA -->
-
-                <div class="column is-9">
-
-                    <!-- SECCION DEL NOMBRE -->
-                    <section class=" has-background-grey-darker mb-3 p-2" style="border-radius:2px;">
-                        <p class="has-text-white"><b>Nombre completo:</b>&nbsp; <?= $datos_usuario['usuario_nombre'] . ' ' . $datos_usuario['usuario_apellido']; ?></p>
-
-                        <p class="has-text-white"><b>Creado:</b>&nbsp; <?= date('d-m-Y h:i:s A', strtotime($datos_usuario['usuario_creado'])); ?> </p>
-
-                        <p class="has-text-white"><b>Actualizado:</b>&nbsp; <?= date("d-m-Y h:i:s A", strtotime($datos_usuario['usuario_actualizado'])); ?></p>
-                    </section>
 
 
+        <div class="columns">
+
+            <!-- columna derecha -->
+            <div class="column is-9">
+                <section style="border:1px solid #222;">
+                    <h1 class="is-size-5 has-text-primary has-background-dark p-2">Datos de usuario:</h1>
+                    <div class="p-2">
+
+                        <?php if ($existe) : ?>
+                            <!-- SI  EXISTE -->
+
+                            <!-- datos del usuario -->
+                            <div class="mb-3 p-2" style="border-radius:2px;">
+
+                                <p class="has-text-white"><b>Nombre completo:</b>&nbsp; <?= $datos_usuario['usuario_nombre'] . ' ' . $datos_usuario['usuario_apellido']; ?></p>
+
+                                <p class="has-text-white"><b>Creado:</b>&nbsp; <?= date('d-m-Y h:i:s A', strtotime($datos_usuario['usuario_creado'])); ?> </p>
+
+                                <p class="has-text-white"><b>Actualizado:</b>&nbsp; <?= date("d-m-Y h:i:s A", strtotime($datos_usuario['usuario_actualizado'])); ?></p>
+                            </div>
+
+                            <!-- SECCION DE LA IMAGEN -->
+
+                            <div class="p-2">
+
+                                <?php if (is_file('./app/views/fotos/' . $datos_usuario['usuario_foto'])) : ?>
+                                    <!-- si existe -->
 
 
+                                    <div class="columns ">
 
-                    <!-- SECCION DE LA IMAGEN -->
-
-                    <section class="p-2">
-
-                        <?php if (is_file('./app/views/fotos/' . $datos_usuario['usuario_foto'])) : ?>
-                            <!-- si existe -->
-
-
-                            <div class="columns ">
-
-                                <div class="column is-6">
-                                    <div class="has-text-centered p-2" style="border:1px solid #333;  border-radius: 6px;">
-                                    <h1 class="title is-5">Eliminar foto</h1>
-                                        <figure class="">
-                                            <img class="has-text-center" src="<?= APP_URL; ?>app/views/fotos/<?= $datos_usuario['usuario_foto'] ?>" alt="" width="350px">
-                                        </figure>
-                                        <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" autocomplete="off">
-                                            <div class="control ">
-                                                <input type="hidden" name="modulo_usuario" value="eliminar_foto">
-                                                <input type="hidden" name="usuario_id" value="<?= $id; ?>">
-                                                <br><br>
-                                                <input class="button" type="submit" value="Eliminar foto">
+                                        <div class="column is-6">
+                                            <div class="has-text-centered p-2" style="border:1px solid #333;  border-radius: 6px;">
+                                                <h1 class="title is-5">Eliminar foto</h1>
+                                                <figure class="">
+                                                    <img class="has-text-center" src="<?= APP_URL; ?>app/views/fotos/<?= $datos_usuario['usuario_foto'] ?>" alt="" width="350px">
+                                                </figure>
+                                                <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" autocomplete="off">
+                                                    <div class="control ">
+                                                        <input type="hidden" name="modulo_usuario" value="eliminar_foto">
+                                                        <input type="hidden" name="usuario_id" value="<?= $id; ?>">
+                                                        <br><br>
+                                                        <input class="button" type="submit" value="Eliminar foto">
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
+
+
+
+                                        <div class="column is-6 ">
+
+                                            <div class="has-text-centered p-2" style="border:1px solid #333; border-radius: 6px; height: 100%;">
+                                                <h1 class="title is-5">Actualizar foto</h1>
+
+                                                <form action="<?= APP_URL; ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data">
+
+                                                    <input type="hidden" name="modulo_usuario" value="actualizar_foto">
+                                                    <input type="hidden" name="usuario_id" value="<?= $datos_usuario['usuario_id']; ?> ">
+                                                    <input type="file" class="input" name="usuario_foto_up" id="usuario_foto_up" accept=".jpg, .jpeg, .png">
+                                                    <br><br>
+                                                    <input class="button" type="submit" value="Actualizar foto">
+                                                </form>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+
+                                <?php else : ?>
+
+
+                                    <!-- si no existe -->
+
+                                    <div class="columns ">
+
+                                        <div class="column is-6">
+                                            <div class="has-text-centered p-2" style="border:1px solid #333;  border-radius: 6px;">
+                                                <h1 class="title is-5">Sin imagen</h1>
+                                                <figure class="">
+                                                    <img class="has-text-center" src="<?= APP_URL; ?>app/views/fotos/Avatar.png" alt="" width="100px">
+                                                </figure>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="column is-6 ">
+
+                                            <div class="has-text-centered p-2" style="border:1px solid #333; border-radius: 6px; height: 100%;">
+                                                <h1 class="title is-5">Agregar foto</h1>
+
+                                                <form action="<?= APP_URL; ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data">
+
+                                                    <input type="hidden" name="modulo_usuario" value="actualizar_foto">
+                                                    <input type="hidden" name="usuario_id" value="<?= $datos_usuario['usuario_id']; ?> ">
+                                                    <input type="file" class="input" name="usuario_foto_up" id="usuario_foto_up" accept=".jpg, .jpeg, .png">
+                                                    <br><br>
+                                                    <input class="button" type="submit" value="Guardar foto">
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                <?php endif ?>
+
+                            </div>
+
+
+
+
+
+
+
+                        <?php else: ?>
+                            <!-- SI NO EXISTE -->
+
+                            <div class="message is-danger">
+                                <div class="message-header">
+                                    <p>!Ocurrió un error inesperado</p>
                                 </div>
+                                <div class="message-body">
+                                    <p>No es posible cargar los datos solicitados.</p>
 
-                                
-
-                                <div class="column is-6 " >
-
-                                    <div class="has-text-centered p-2" style="border:1px solid #333; border-radius: 6px; height: 100%;">
-                                    <h1 class="title is-5">Actualizar foto</h1>
-                                    
-                                    <form action="<?= APP_URL; ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data">
-
-                                        <input type="hidden" name="modulo_usuario" value="actualizar_foto">
-                                        <input type="hidden" name="usuario_id" value="<?= $datos_usuario['usuario_id'];?> " >
-                                        <input type="file" class="input" name="usuario_foto_up" id="usuario_foto_up" accept=".jpg, .jpeg, .png">
-                                        <br><br>
-                                        <input class="button"  type="submit" value="Actualizar foto">
-                                    </form>
-                                    </div>
                                 </div>
 
                             </div>
 
 
-                        <?php else : ?>
+                        <?php endif; ?>
 
-
-                            <!-- si no existe -->
-                            <div class="has-text-centered">
-                                <figure class="image is-128x128 is-inline-block">
-                                    <img class="has-text-center" src="<?= APP_URL; ?>app/views/fotos/Avatar.png" alt="" width="100">
-                                </figure>
-                            </div>
-
-                        <?php endif ?>
-
-                    </section>
-                </div>
-
-
-                <!-- FIN COLUMNA DERECHA -->
-
-            <?php else : ?>
-
-                <!-- MENSAJE DE ERROR -->
-                <?php include('./app/views/inc/error_alert.php'); ?>
-                <!-- END MENSAJE DE ERROR -->
-            <?php endif; ?>
-
-
-
-
-            <!-- COLUMNA IZQUIERDA -->
-
-            <div class="column is-3 ">
-
-                <section class="has-background-grey mb-3 p-2">
-                    <p>Columna izquierda</p>
+                    </div>
                 </section>
 
-
             </div>
+            <!-- end columna derecha -->
 
-            <!-- FIN COLUMNA IZQUIERDA -->
 
+
+            <!-- columna izquierda -->
+            <div class="column is-3">
+                <section style="border:1px solid #222;">
+                    <h1 class="is-size-5 has-text-primary has-background-dark p-2">Columna izquierda</h1>
+                    <div class="p-2">
+                        <p>Seccion #2</p>
+                        <h1 class=" title is-size-1 has-text-warning">Quedamos en el 09.28min</h1>
+                        <p>Nombre de la foto</p>
+                    </div>
+                </section>
             </div>
-
+            <!-- end columna izquierda -->
+        </div>
 
     </div>
+
+
+    <!--- fin ---->
+
+
+
 </div>
 
 <script src="<?= APP_URL; ?>app/views/js/mostrar_imagen_seleccionada.js"></script>
