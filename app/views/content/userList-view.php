@@ -19,7 +19,7 @@
         </div>
 
         <div class="columns">
-            <div class="column is-9" style="border: 1px solid #7777; border-radius:5px;">
+            <div class="column is-12" style="border: 1px solid #7777; border-radius:5px;">
 
                 <div class="container ">
                     <?php 
