@@ -199,8 +199,7 @@ if ($datos_usuario->rowCount() == 1) {
                     <h1 class="is-size-5 has-text-primary has-background-dark p-2">Columna izquierda</h1>
                     <div class="p-2">
                         <p>Seccion #2</p>
-                        <h1 class=" title is-size-1 has-text-warning">Quedamos en el 09.28min</h1>
-                        <p>Nombre de la foto</p>
+                        
                     </div>
                 </section>
             </div>

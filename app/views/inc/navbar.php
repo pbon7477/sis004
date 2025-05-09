@@ -35,8 +35,7 @@ $selected = str_replace('/','',$_GET['views']);;
           <a href="<?= APP_URL;?>userNew/" class="navbar-item <?= ($selected == 'userNew')?'is-selected' : ''; ?>">Nuevo usuario</a>
           <a href="<?= APP_URL;?>userList/" class="navbar-item <?= ($selected == 'userList')?'is-selected' : ''; ?>">Lista de usuarios</a>
           <a href="<?= APP_URL;?>userSearch/" class="navbar-item <?= ($selected == 'userSearch')?'is-selected' : ''; ?>">Buscar usuario</a>
-          <a href="<?= APP_URL;?>userUpdate/" class="navbar-item <?= ($selected == 'userUpdate')?'is-selected' : ''; ?>">Actualizar usuario</a>
-          <a href="<?= APP_URL;?>userPhoto/" class="navbar-item <?= ($selected == 'userPhoto')?'is-selected' : ''; ?>">Foto de usuario</a>
+
           <hr class="navbar-divider">
           <a href="<?= APP_URL;?>test" class="navbar-item <?= ($selected == 'test')?'is-selected' : ''; ?>" >Test</a>
           
