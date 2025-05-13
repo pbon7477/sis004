@@ -11,7 +11,13 @@ if( isset($_POST['modulo_buscador']) ){
     $SearchController = new SearchController();
 
     if($_POST['modulo_buscador'] == 'buscar'){
+        echo $SearchController->iniciar_buscador_controlador();
         
+    }
+
+
+    if($_POST['modulo_buscador'] == 'eliminar'){
+        echo  $SearchController->eliminar_busqueda_controlador();
     }
 
 

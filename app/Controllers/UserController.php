@@ -375,9 +375,9 @@ class UserController extends MainModel
                                         (usuario_id != '" . $_SESSION['id'] . "' AND usuario_id != '1')
                                          AND 
                                         ( usuario_nombre LIKE '%$busqueda%' OR
-                                          usuario_apellido LIKE %$busqueda% OR
-                                          usuario_email LIKE %$busqueda% OR     
-                                          usuario_usuario LIKE %$busqueda%      )
+                                          usuario_apellido LIKE '%$busqueda%' OR
+                                          usuario_email LIKE '%$busqueda%' OR     
+                                          usuario_usuario LIKE '%$busqueda%')
                                      )    
                                ORDER BY usuario_nombre ASC
                                LIMIT " . $inicio . "," . $numero_registros . ";";
@@ -387,9 +387,9 @@ class UserController extends MainModel
                                         (usuario_id != '" . $_SESSION['id'] . "' AND usuario_id != '1')
                                          AND 
                                         ( usuario_nombre LIKE '%$busqueda%' OR
-                                          usuario_apellido LIKE %$busqueda% OR
-                                          usuario_email LIKE %$busqueda% OR     
-                                          usuario_usuario LIKE %$busqueda%      )
+                                          usuario_apellido LIKE '%$busqueda%' OR
+                                          usuario_email LIKE '%$busqueda%' OR     
+                                          usuario_usuario LIKE '%$busqueda%'      )
                                      )";
         } else {
 

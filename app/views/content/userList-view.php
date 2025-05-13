@@ -2,14 +2,14 @@
     <div class="container  my-5">
 
         <div class="columns">
-            <div class="column is-9">
+            <div class="column is-12">
                 <div class="is-flex is-justify-content-space-between">
                     <div>
                         <h1 class="title">Usuarios</h1>
                         <h1 class="subtitle">Lista de usuarios</h1>
                     </div>
                 <div>
-                     <button type="button" class="button is-dark is-small" id="btnVolver">Volver</button>
+                     
                     <a href="<?= APP_URL;?>userNew/" type="button" class="button is-primary is-small">Nuevo usuario</a>
                 </div>
                 </div>

@@ -214,5 +214,3 @@ if ($datos_usuario->rowCount() == 1) {
 
 
 </div>
-
-<script src="<?= APP_URL; ?>app/views/js/mostrar_imagen_seleccionada.js"></script>

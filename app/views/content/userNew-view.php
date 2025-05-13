@@ -17,7 +17,7 @@
 
 
 
-                <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data" autocomplete="on">
+                <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data" autocomplete="off">
 
                     <input type="hidden" name="modulo_usuario" value="registrar">
 
@@ -64,7 +64,7 @@
                         <div class="column is-4">
                             <div class="control">
                                 <label for="usuario_clave_1">Password: *</label>
-                                <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100" required>
+                                <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100" required autocomplete="off">
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
                         <div class="column is-4">
                             <div class="control">
                                 <label for="usuario_clave_2">Confirmar password: *</label>
-                                <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100" required>
+                                <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100" required autocomplete="off">
                             </div>
                         </div>
 

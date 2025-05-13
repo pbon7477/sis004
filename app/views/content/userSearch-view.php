@@ -39,7 +39,7 @@ $url = explode('/',$_GET['views']);
                     <h1 class="is-size-5 has-text-primary has-background-dark p-2">Buscador:</h1>
                     <div class="p-2">
 
-                        <form action="<?= APP_URL; ?>ajax/buscadorAjax.php" class="FormularioAjax" method="post" autocomplete="off">
+                        <form action="<?= APP_URL; ?>app/ajax/buscadorAjax.php" class="FormularioAjax" method="post" autocomplete="off">
 
                             <input type="hidden" name="modulo_buscador" value="buscar">
                             <input type="hidden" name="modulo_url" value="<?= $url[0]; ?>">
@@ -47,7 +47,7 @@ $url = explode('/',$_GET['views']);
                             <div class="field is-grouped ">
                                 <div class="control is-expanded">
 
-                                    <input class="input is-small" type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,30}" name="txt_buscador" placeholder="¿Que esta buscando?" maxlength="30" required>
+                                    <input class="input is-small" type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ@. ]{1,30}" name="texto_busqueda" placeholder="¿Que esta buscando?" maxlength="30" required>
                                 </div>
                                 <div class="control">
                                     <input class="button is-small is-info" type="submit" value="buscar">
@@ -75,7 +75,7 @@ $url = explode('/',$_GET['views']);
                     <h1 class="is-size-5 has-text-primary has-background-dark p-2">Resultados de la busqueda:</h1>
                     <div class="p-2">
 
-                        <form action="<?= APP_URL; ?>ajax/buscadorAjax.php" class="FormularioAjax" method="post" autocomplete="off">
+                        <form action="<?= APP_URL; ?>app/ajax/buscadorAjax.php" class="FormularioAjax" method="post" autocomplete="off">
 
                             <input type="hidden" name="modulo_buscador" value="eliminar">
                             <input type="hidden" name="modulo_url" value="<?= $url[0]; ?>">
@@ -83,7 +83,7 @@ $url = explode('/',$_GET['views']);
                             <div class="field is-grouped ">
                                 <div class="control is-expanded">
                                    
-                                    <p class="">Estas buscando <b><?= $_SESSION[$url[0] ];?></b></p>
+                                    <p class="">Estas buscando:  <b>"<?= $_SESSION[$url[0] ];?>"</b></p>
                                 </div>
                                 <div class="control">
                                     <input class="button is-small is-danger" type="submit" value="Eliminar busqueda">
@@ -98,14 +98,18 @@ $url = explode('/',$_GET['views']);
                 </section>
                 
                 <!--- Listado de la busqueda --->
-                <?php 
+                  <section style="border:1px solid #222; margin-top: 5px; padding: 8px;">
                     
-                    $UserController->listar_usuarios_controlador($url[1],10,$url[0],$_SESSION[$url[0]]);
+
+                    <?php 
+                    
+                    echo $UserController->listar_usuarios_controlador($url[1],10,$url[0],$_SESSION[$url[0]]);
                     
                     ?>
                 <!-- END FORMULARIO PARA ELIMINAR LA BUSQUEDA Y LISTADO -->
-
+                
                 <?php endif; ?>
+            </section>
 
 
 
@@ -137,4 +141,3 @@ $url = explode('/',$_GET['views']);
 
 </div>
 
-<script src="<?= APP_URL; ?>app/views/js/mostrar_imagen_seleccionada.js"></script>
