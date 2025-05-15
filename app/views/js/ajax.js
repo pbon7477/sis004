@@ -83,9 +83,7 @@ function alerta_ajax(alerta) {
 
 
 
-// boton cerrar session
-
-let btn_exit = document.querySelector("#btn_exit");
+let btn_exit = document.getElementById("btn_exit");
 
 btn_exit.addEventListener("click", (e) => {
   e.preventDefault();

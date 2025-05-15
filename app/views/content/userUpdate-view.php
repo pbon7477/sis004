@@ -73,7 +73,7 @@ if ($datos_usuario->rowCount() == 1) :
 
 
 
-                    <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post" enctype="multipart/form-data" autocomplete="on">
+                    <form action="<?= APP_URL ?>app/ajax/usuario_ajax.php" class="FormularioAjax" method="post"  autocomplete="off">
 
                         <input type="hidden" name="modulo_usuario" value="actualizar">
                         <input type="hidden" name="usuario_id" value="<?= $datos['usuario_id']; ?>">
@@ -122,7 +122,7 @@ if ($datos_usuario->rowCount() == 1) :
                             <div class="column is-4">
                                 <div class="control">
                                     <label class="label" for="usuario_clave_1">Nuevo Password: </label>
-                                    <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100">
+                                    <input class="input is-small" type="password" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_1" maxlength="100" autocomplete="off">
                                 </div>
                             </div>
 
@@ -130,37 +130,15 @@ if ($datos_usuario->rowCount() == 1) :
                             <div class="column is-4">
                                 <div class="control">
                                     <label class="label" for="usuario_clave_2">Confirmar password: </label>
-                                    <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100">
+                                    <input class="input is-small" type="password" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.\-]{6,100}" id="usuario_clave_2" maxlength="100" autocomplete="off">
                                 </div>
                             </div>
 
 
                         </div>
-                        <hr>
-
-                        <div class="columns">
-                            <!-- Usuario Foto -->
-                            <div class="column is-5">
-                                <div class="control">
-                                    <label class="label" for="usuario_foto" class="file-label">Seleccione una foto de perfil:</label>
-                                    <input class="button  is-small" type="file" name="usuario_foto" id="usuario_foto" value="" accept=".jpg, .png, .jpeg">
-                                </div>
-                                <small class="">Formato:.jpg, .jpeg, .png (Tamaño maximo: 5mb)</small>
-                            </div>
-
-                            <!-- Usuario Ouput foto -->
-                            <div class="column is-2 is-flex is-justify-content-center is-align-items-center mt-3" style="border:1px solid #333; border-radius: 2px;">
-                                <output class="is-rounded" id="imagePreview">
-                                    <img src="<?= APP_URL . 'app/views/fotos/' . ($datos['usuario_foto'] ? $datos['usuario_foto'] : 'Avatar.png'); ?>" alt="">
-
-                                </output>
-
-                            </div>
+                       
 
 
-
-
-                        </div>
                         <br>
                         <hr>
                         <br>
@@ -175,12 +153,12 @@ if ($datos_usuario->rowCount() == 1) :
 
                                 <div class="control">
                                     <label class="label">Usuario:</label>
-                                    <input type="text" class="input is-small" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}" name="administrador_usuario" id="administrador_usuario">
+                                    <input type="text" class="input is-small" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}" name="administrador_usuario" id="administrador_usuario" autocomplete="off" required>
                                 </div>
 
                                 <div class="control">
                                     <label class="label">Contraseña:</label>
-                                    <input type="password" class="input is-small" pattern="[a-zA-Z0-9$@.\-]{6,100}" name="administrador_clave" id="administrador_clave">
+                                    <input type="password" class="input is-small" pattern="[a-zA-Z0-9$@.\-]{6,100}" name="administrador_clave" id="administrador_clave" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -234,12 +212,3 @@ if ($datos_usuario->rowCount() == 1) :
 endif;   ?>
 
 
-
-<script src="<?= APP_URL; ?>app/views/js/mostrar_imagen_seleccionada.js"></script>
-
-<script>
-    document.querySelector('#btnVolver').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.history.back();
-    });
-</script>

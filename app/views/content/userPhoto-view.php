@@ -196,10 +196,11 @@ if ($datos_usuario->rowCount() == 1) {
             <!-- columna izquierda -->
             <div class="column is-3">
                 <section style="border:1px solid #222;">
-                    <h1 class="is-size-5 has-text-primary has-background-dark p-2">Columna izquierda</h1>
+                    <h1 class="is-size-5 has-text-primary has-background-dark p-2">Detalles</h1>
                     <div class="p-2">
-                        <p>Seccion #2</p>
-                        
+                        <p>Info</p>
+                        <h1>...</h1>
+
                     </div>
                 </section>
             </div>

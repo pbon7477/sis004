@@ -5,7 +5,7 @@ namespace app\Models;
 class ViewsModel {
 
     protected function obtenerVistasModelo($vista){
-        $lista_blanca = ['dashboard','test','userNew','userList','userSearch','userUpdate','userPhoto','logOut'];
+        $lista_blanca = ['dashboard','userNew','userList','userSearch','userUpdate','userPhoto','logOut'];
 
         if( in_array( $vista, $lista_blanca ) ){
             if( is_file( './app/views/content/' . $vista . '-view.php' ) ){

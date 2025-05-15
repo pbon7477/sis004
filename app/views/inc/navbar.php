@@ -33,18 +33,19 @@ $selected = str_replace('/','',$_GET['views']);;
         
         <div class="navbar-dropdown is-hidden" id="subMenu">
           <a href="<?= APP_URL;?>userNew/" class="navbar-item <?= ($selected == 'userNew')?'is-selected' : ''; ?>">Nuevo usuario</a>
+          <hr class="navbar-divider">
           <a href="<?= APP_URL;?>userList/" class="navbar-item <?= ($selected == 'userList')?'is-selected' : ''; ?>">Lista de usuarios</a>
+          <hr class="navbar-divider">
           <a href="<?= APP_URL;?>userSearch/" class="navbar-item <?= ($selected == 'userSearch')?'is-selected' : ''; ?>">Buscar usuario</a>
 
-          <hr class="navbar-divider">
-          <a href="<?= APP_URL;?>test" class="navbar-item <?= ($selected == 'test')?'is-selected' : ''; ?>" >Test</a>
+          
+       
           
           
         </div>
       </div>
       
-      <a class="navbar-item "> seccion 3 </a>
-      <a class="navbar-item">Contacto</a>
+
       
     </div>
 
@@ -76,3 +77,5 @@ $selected = str_replace('/','',$_GET['views']);;
     </div> -->
   </div>
 </nav>
+
+

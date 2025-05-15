@@ -16,7 +16,7 @@
         <div class="field">
             <label for="login_clave" class="label">Clave</label>
             <div class="control">
-                <input type="password" class="input" pattern="[a-zA-Z0-9$@.\-]{6,100}" name="login_clave" id="login_clave" maxlength="100" required>
+                <input type="password" class="input" pattern="[a-zA-Z0-9$@.\-]{6,100}" name="login_clave" id="login_clave" maxlength="100" autocomplete="off" required>
             </div>
         </div>
 
