@@ -1,7 +1,3 @@
-Para crear un archivo README efectivo que describa las funcionalidades, la estructura y el patrón de diseño utilizado en el repositorio `sis004`, puedo ayudarte a generar un borrador. Aquí tienes un ejemplo de cómo podría estructurarse:
-
----
-
 # sis004
 
 **PHP-POO-MVC - Login y Usuarios**
